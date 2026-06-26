@@ -261,13 +261,9 @@
         let isRegPasswordSecure = false;
         let isOtpPasswordSecure = false;
 
-        // Supabase 配置
+        // Supabase 配置（已自動將填入的金鑰合併為單行字串）
         const SUPABASE_URL = "https://jyghcpwnrsisdqjoxvfu.supabase.co";
-        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
-YmFzZSIsInJlZiI6Imp5Z2hjcHducnNpc2Rxam94dmZ1Iiwicm9s
-ZSI6ImFub24iLCJpYXQiOjE3ODE2MTE4MjYsImV4cCI6MjA5N
-zE4NzgyNn0.8TmCWCX0X-fxp9Ur1r06l8opRlKI8Xf7ZOiBY7bo
-huU"; 
+        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp5Z2hjcHducnNpc2Rxam94dmZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE2MTE4MjYsImV4cCI6MjA5N0E4NzgyNn0.8TmCWCX0X-fxp9Ur1r06l8opRlKI8Xf7ZOiBY7bohuU"; 
         let supabaseClient = null;
 
         // 初始化與安全防錯攔截
@@ -389,7 +385,7 @@ huU";
             }
         }
 
-        // 密碼即時強度檢核 (修正後的超穩健正規表達式)
+        // 密碼即時強度檢核
         function validatePasswordLive(prefix) {
             const input = document.getElementById(`${prefix}-password`);
             const val = input.value;
@@ -399,7 +395,7 @@ huU";
                 up: /[A-Z]/.test(val),
                 low: /[a-z]/.test(val),
                 num: /[0-9]/.test(val),
-                spec: /[^a-zA-Z0-9\s]/.test(val) // 改用非英數空格排除法，相容性最高
+                spec: /[^a-zA-Z0-9\s]/.test(val)
             };
 
             let passedCount = 0;
@@ -456,9 +452,8 @@ huU";
             }
         }
 
-        // 補上遺漏的 Apple 登入按鈕副程式，完美遏止 ReferenceError 崩潰
         function handleAppleLogin() {
-            alert(currentLang === 'zh' ? " Apple 登入模組目前正在進行本地端安全性模擬中。" : " Apple Sign-In simulator active.");
+            alert(currentLang === 'zh' ? " Apple 登入模組目前正在進行本地端安全性模擬中。" : " Apple Sign-In simulator active.");
         }
 
         // 後端狀態更新
@@ -481,7 +476,7 @@ huU";
         // 註冊、登入與 OTP 密碼重置串接
         async function handleEmailRegister() {
             if (!verifyAndInitSupabase()) {
-                return alert("⚠️ 請先將 SUPABASE_ANON_KEY 替換為你在 Supabase 後台取得的真實英數密鑰（目前仍包含中文提示字）。");
+                return alert("⚠️ 請先將 SUPABASE_ANON_KEY 替換為真實英數密鑰。");
             }
             const name = document.getElementById('reg-name').value.trim();
             const age = document.getElementById('reg-age').value;
