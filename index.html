@@ -12,184 +12,196 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
-            background-color: #0B0F19;
+            background: radial-gradient(circle at center, #1E1B4B 0%, #0B0F19 100%);
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
-        .gradient-btn {
+        .btn-gradient-primary {
             background: linear-gradient(90deg, #D946EF 0%, #3B82F6 100%);
+        }
+        .btn-gradient-secondary {
+            background: linear-gradient(90deg, #3B82F6 0%, #06B6D4 100%);
         }
     </style>
 </head>
 <body class="flex items-center justify-center min-h-screen p-4 text-white">
 
-    <!-- 主容器（標準手機 App 內嵌網頁比例） -->
-    <div class="w-full max-w-md bg-[#111827]/80 backdrop-blur-xl rounded-[40px] border border-gray-800 p-8 relative shadow-2xl overflow-hidden min-h-[920px] flex flex-col justify-between">
+    <!-- 主容器（完美還原 Simulator Screenshot - iPhone 17 Pro - 2026-06-26 at 22.16.24.jpg 沉浸式外觀） -->
+    <div class="w-full max-w-md bg-[#111827]/90 backdrop-blur-2xl rounded-[40px] border border-gray-800/60 p-8 relative shadow-2xl overflow-hidden min-h-[940px] flex flex-col justify-between">
         
-        <!-- 頂部列：左側語系、中央標題、右側動態迎賓詞 -->
-        <div class="flex items-center justify-between w-full mb-6 gap-2">
-            <button onclick="toggleLanguage()" id="lang-btn" class="text-xs text-gray-400 bg-gray-900/60 px-3 py-1.5 rounded-full border border-gray-800 hover:bg-gray-800 transition font-medium">
+        <!-- 頂部狀態控制列 -->
+        <div class="flex items-center justify-between w-full mb-4">
+            <button onclick="toggleLanguage()" id="lang-btn" class="text-xs text-gray-400 bg-gray-900/60 px-3 py-1.5 rounded-full border border-gray-800 hover:bg-gray-700 transition font-medium">
                 <i class="fa-solid fa-globe mr-1"></i>EN
             </button>
-            <h2 class="text-[#EAB308] text-base tracking-wider font-bold font-serif">Zenith Magic</h2>
-            <div id="top-right-area" class="flex justify-end items-center max-w-[150px]">
-                <button id="close-btn" class="text-gray-400 text-sm bg-gray-900/60 px-3 py-1.5 rounded-full border border-gray-800 hover:bg-gray-800 transition">關閉</button>
+            <div id="top-right-area" class="flex justify-end items-center max-w-[180px]">
+                <button id="close-btn" class="text-gray-300 text-xs bg-gray-800/80 px-4 py-1.5 rounded-full border border-gray-700/50 hover:bg-gray-700 transition font-medium">關閉</button>
             </div>
         </div>
 
-        <!-- 中央黃色頭貼 Icon -->
-        <div class="flex flex-col items-center justify-center mb-4">
-            <div class="relative text-[#EAB308] text-6xl mb-2">
+        <!-- 頂部頭貼與雙層大標題 -->
+        <div class="flex flex-col items-center justify-center mb-6">
+            <div class="relative text-[#EAB308] text-5xl mb-2 opacity-90">
                 <i class="fa-solid fa-circle-user"></i>
-                <div class="absolute bottom-0 left-0 text-xl bg-[#111827] rounded-full p-0.5">
+                <div class="absolute bottom-0 left-0 text-lg bg-[#111827] rounded-full p-0.5">
                     <i class="fa-solid fa-circle-check text-[#EAB308]"></i>
                 </div>
             </div>
+            <p id="sub-title-label" class="text-xs text-gray-400 tracking-wider font-light">帳號系統登入</p>
+            <h1 id="main-title-label" class="text-2xl font-bold text-[#EAB308] tracking-widest mt-1">建立新帳號</h1>
         </div>
 
         <!-- ========================================== -->
-        <!-- 1. 登入面板 (Login Panel) -->
+        <!-- 1. 註冊面板 (依據截圖完美排序調整) -->
         <!-- ========================================== -->
-        <div id="login-panel" class="space-y-5 flex-grow flex flex-col justify-start">
-            <h1 id="text-welcome-back" class="text-3xl font-bold text-center text-[#EAB308] tracking-wide mb-2">歡迎回來</h1>
-            
-            <button onclick="handleAppleLogin()" class="w-full bg-black hover:bg-gray-900 text-white py-3.5 rounded-xl font-medium flex items-center justify-center gap-2 border border-gray-800 transition">
-                <i class="fa-brands fa-apple text-xl"></i> <span id="text-apple-login">使用 Apple 登入</span>
-            </button>
+        <div id="register-panel" class="space-y-4 flex-grow flex flex-col justify-start">
+            <div class="space-y-3.5">
+                <!-- 姓名或暱稱 -->
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-[#EAB308] text-lg"><i class="fa-solid fa-user"></i></span>
+                    <input type="text" id="reg-name" class="w-full bg-[#F3F4F6] text-gray-900 pl-12 pr-4 py-3.5 rounded-xl font-medium placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+                </div>
+                
+                <!-- 年齡選擇器 (1~99歲) -->
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-[#EAB308] text-lg"><i class="fa-solid fa-calendar-days"></i></span>
+                    <select id="reg-age" class="w-full bg-[#F3F4F6] text-gray-900 pl-12 pr-10 py-3.5 rounded-xl font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none"></select>
+                    <span class="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500 pointer-events-none"><i class="fa-solid fa-chevron-down text-sm"></i></span>
+                </div>
 
-            <div class="flex items-center my-4 text-gray-500 text-sm">
-                <div class="flex-grow border-t border-gray-800"></div>
-                <span id="text-or" class="px-3">或者</span>
-                <div class="flex-grow border-t border-gray-800"></div>
+                <!-- Apple 登入按鈕直接內嵌在表單排序中 -->
+                <button onclick="handleAppleLogin()" class="w-full bg-black hover:bg-gray-900 text-white py-3.5 rounded-xl font-semibold flex items-center justify-center gap-2 border border-gray-800 transition active:scale-[0.99]">
+                    <i class="fa-brands fa-apple text-xl"></i> <span id="text-apple-login">使用 Apple 登入</span>
+                </button>
+
+                <!-- 電子郵件 -->
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-[#EAB308] text-lg"><i class="fa-solid fa-envelope"></i></span>
+                    <input type="email" id="reg-email" class="w-full bg-[#F3F4F6] text-gray-900 pl-12 pr-4 py-3.5 rounded-xl font-medium placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+                </div>
+                
+                <!-- 密碼框與小眼睛切換 👁 -->
+                <div class="space-y-2.5">
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-[#EAB308] text-lg"><i class="fa-solid fa-lock"></i></span>
+                        <input type="password" id="reg-password" oninput="validatePasswordLive('reg')" class="w-full bg-[#F3F4F6] text-gray-900 pl-12 pr-12 py-3.5 rounded-xl font-mono focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all tracking-widest">
+                        <button onclick="togglePasswordVisibility('reg-password')" class="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-400 hover:text-gray-600 transition-colors">
+                            <i class="fa-solid fa-eye text-lg" id="eye-reg-password"></i>
+                        </button>
+                    </div>
+
+                    <!-- 密碼強度數值與動態強度條 -->
+                    <div class="space-y-1.5 pt-1">
+                        <div class="flex justify-between items-center text-xs text-gray-300 px-0.5">
+                            <span>密碼強度</span>
+                            <span id="reg-strength-label" class="font-bold tracking-wide transition-colors duration-200"></span>
+                        </div>
+                        <div class="h-1.5 w-full bg-gray-800 rounded-full overflow-hidden">
+                            <div id="reg-strength-bar" class="h-full w-0 bg-red-500 transition-all duration-300"></div>
+                        </div>
+                    </div>
+
+                    <!-- 單欄式全寬即時檢核清單（完美對齊設計稿） -->
+                    <div class="flex flex-col gap-2 text-xs text-gray-500 pt-1.5 pl-0.5">
+                        <div id="reg-req-len" class="flex items-center gap-2 transition-colors duration-200"><i class="fa-regular fa-circle text-sm"></i><span id="lbl-req-len">至少 8 碼</span></div>
+                        <div id="reg-req-up" class="flex items-center gap-2 transition-colors duration-200"><i class="fa-regular fa-circle text-sm"></i><span id="lbl-req-up">至少包含一個大寫英文字母 (A-Z)</span></div>
+                        <div id="reg-req-low" class="flex items-center gap-2 transition-colors duration-200"><i class="fa-regular fa-circle text-sm"></i><span id="lbl-req-low">至少包含一個小寫英文字母 (a-z)</span></div>
+                        <div id="reg-req-num" class="flex items-center gap-2 transition-colors duration-200"><i class="fa-regular fa-circle text-sm"></i><span id="lbl-req-num">至少包含一個數字 (0-9)</span></div>
+                        <div id="reg-req-spec" class="flex items-center gap-2 transition-colors duration-200"><i class="fa-regular fa-circle text-sm"></i><span id="lbl-req-spec">至少包含一個特殊符號 (如 @、#、$、%、^、&、*)</span></div>
+                    </div>
+                </div>
             </div>
 
+            <!-- 操作按鈕群 -->
+            <div class="space-y-3 pt-4">
+                <button onclick="handleEmailRegister()" id="btn-register-now" class="w-full btn-gradient-primary hover:opacity-95 text-white font-bold py-4 rounded-xl shadow-lg transition active:scale-[0.99] tracking-wide">立即註冊</button>
+                <button onclick="switchPanel('login-panel')" id="btn-back-to-login" class="w-full btn-gradient-secondary hover:opacity-95 text-white py-4 rounded-xl font-bold transition active:scale-[0.99] tracking-wide">已有帳號？返回登入</button>
+            </div>
+            
+            <!-- 註冊底部的「或者」與「忘記密碼」排版 -->
+            <div class="flex justify-between items-center pt-4 mt-auto">
+                <span id="footer-or-label" class="text-base font-medium text-white tracking-wider">或者</span>
+                <button onclick="switchPanel('forgot-panel')" id="footer-forgot-btn" class="bg-gray-800/80 border border-gray-700/60 text-gray-300 px-5 py-2.5 rounded-xl text-sm font-medium hover:text-white hover:bg-gray-700 transition shadow-sm">忘記密碼 ？</button>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- 2. 登入面板 (Login Panel) -->
+        <!-- ========================================== -->
+        <div id="login-panel" class="space-y-5 flex-grow flex flex-col justify-start hidden">
             <div class="space-y-4">
                 <div class="relative">
-                    <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-[#EAB308]"><i class="fa-solid fa-envelope"></i></span>
-                    <input type="email" id="login-email" class="w-full bg-white text-gray-900 pl-11 pr-4 py-3.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-[#EAB308] text-lg"><i class="fa-solid fa-envelope"></i></span>
+                    <input type="email" id="login-email" class="w-full bg-[#F3F4F6] text-gray-900 pl-12 pr-4 py-3.5 rounded-xl font-medium focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
                 <div class="relative">
-                    <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-[#EAB308]"><i class="fa-solid fa-lock"></i></span>
-                    <input type="password" id="login-password" class="w-full bg-white text-gray-900 pl-11 pr-11 py-3.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-[#EAB308] text-lg"><i class="fa-solid fa-lock"></i></span>
+                    <input type="password" id="login-password" class="w-full bg-[#F3F4F6] text-gray-900 pl-12 pr-12 py-3.5 rounded-xl font-mono focus:outline-none focus:ring-2 focus:ring-blue-500 tracking-widest">
                     <button onclick="togglePasswordVisibility('login-password')" class="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-400 hover:text-gray-600">
-                        <i class="fa-solid fa-eye" id="eye-login-password"></i>
+                        <i class="fa-solid fa-eye text-lg" id="eye-login-password"></i>
                     </button>
                 </div>
             </div>
 
-            <button onclick="handleEmailLogin()" id="btn-login" class="w-full gradient-btn hover:opacity-90 text-white font-medium py-3.5 rounded-xl shadow-lg transition mt-4">登入</button>
-            <button onclick="switchPanel('register-panel')" id="btn-goto-register" class="w-full bg-gradient-to-r from-purple-900/40 to-blue-900/40 border border-purple-500/30 text-blue-300 py-3.5 rounded-xl font-medium hover:from-purple-900/60 hover:to-blue-900/60 transition">沒有帳號？立即註冊</button>
-            <div class="text-right">
-                <button onclick="switchPanel('forgot-panel')" id="btn-forgot-pwd" class="text-gray-400 text-sm bg-gray-900/80 border border-gray-800 px-4 py-2 rounded-xl hover:text-white transition">忘記密碼？</button>
-            </div>
+            <button onclick="handleEmailLogin()" id="btn-login" class="w-full btn-gradient-primary hover:opacity-95 text-white font-bold py-4 rounded-xl shadow-lg transition tracking-wide mt-2">登入</button>
+            <button onclick="switchPanel('register-panel')" id="btn-goto-register" class="w-full btn-gradient-secondary text-white py-4 rounded-xl font-bold transition tracking-wide">沒有帳號？前往註冊</button>
         </div>
 
         <!-- ========================================== -->
-        <!-- 2. 註冊面板 (Register Panel - 含即時強檢) -->
-        <!-- ========================================== -->
-        <div id="register-panel" class="space-y-4 flex-grow flex flex-col justify-start hidden">
-            <h1 id="text-create-account" class="text-3xl font-bold text-center text-[#EAB308] tracking-wide mb-1">建立帳號</h1>
-
-            <div class="space-y-3">
-                <div class="relative">
-                    <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-[#EAB308]"><i class="fa-solid fa-user"></i></span>
-                    <input type="text" id="reg-name" class="w-full bg-white text-gray-900 pl-11 pr-4 py-3.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
-                
-                <!-- 年齡選擇器：動態支援 1 ~ 99 歲 -->
-                <div class="relative">
-                    <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-[#EAB308]"><i class="fa-solid fa-calendar-days"></i></span>
-                    <select id="reg-age" class="w-full bg-white text-gray-900 pl-11 pr-4 py-3.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none"></select>
-                    <span class="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500 pointer-events-none"><i class="fa-solid fa-chevron-down text-sm"></i></span>
-                </div>
-
-                <div class="relative">
-                    <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-[#EAB308]"><i class="fa-solid fa-envelope"></i></span>
-                    <input type="email" id="reg-email" class="w-full bg-white text-gray-900 pl-11 pr-4 py-3.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
-                
-                <!-- 密碼輸入與強檢區域 -->
-                <div class="space-y-2">
-                    <div class="relative">
-                        <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-[#EAB308]"><i class="fa-solid fa-lock"></i></span>
-                        <input type="password" id="reg-password" oninput="validatePasswordLive('reg')" class="w-full bg-white text-gray-900 pl-11 pr-11 py-3.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        <button onclick="togglePasswordVisibility('reg-password')" class="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-400 hover:text-gray-600">
-                            <i class="fa-solid fa-eye" id="eye-reg-password"></i>
-                        </button>
-                    </div>
-
-                    <!-- 密碼強度顯示條 -->
-                    <div class="h-1.5 w-full bg-gray-800 rounded-full overflow-hidden">
-                        <div id="reg-strength-bar" class="h-full w-0 bg-red-500 transition-all duration-300"></div>
-                    </div>
-
-                    <!-- 即時條件檢核清單 -->
-                    <div class="grid grid-cols-2 gap-x-2 gap-y-1 text-[11px] text-gray-500 pt-1">
-                        <div id="reg-req-len" class="flex items-center gap-1 transition"><i class="fa-solid fa-circle-minus"></i><span id="lbl-req-len">長度至少 8 碼</span></div>
-                        <div id="reg-req-up" class="flex items-center gap-1 transition"><i class="fa-solid fa-circle-minus"></i><span id="lbl-req-up">包含大寫字母 (A-Z)</span></div>
-                        <div id="reg-req-low" class="flex items-center gap-1 transition"><i class="fa-solid fa-circle-minus"></i><span id="lbl-req-low">包含小寫字母 (a-z)</span></div>
-                        <div id="reg-req-num" class="flex items-center gap-1 transition"><i class="fa-solid fa-circle-minus"></i><span id="lbl-req-num">包含數字 (0-9)</span></div>
-                        <div id="reg-req-spec" class="flex items-center gap-1 col-span-2 transition"><i class="fa-solid fa-circle-minus"></i><span id="lbl-req-spec">包含特殊符號 (@, #, $, %, ^, &, *)</span></div>
-                    </div>
-                </div>
-            </div>
-
-            <button onclick="handleEmailRegister()" id="btn-register-now" class="w-full gradient-btn hover:opacity-90 text-white font-medium py-3.5 rounded-xl shadow-lg transition mt-2">立即註冊</button>
-            <button onclick="switchPanel('login-panel')" id="btn-back-to-login" class="w-full bg-gradient-to-r from-purple-900/40 to-blue-900/40 border border-purple-500/30 text-blue-300 py-3.5 rounded-xl font-medium hover:from-purple-900/60 hover:to-blue-900/60 transition">已有帳號？返回登入</button>
-        </div>
-
-        <!-- ========================================== -->
-        <!-- 3. 忘記密碼與 OTP 面板 (Forgot Password Panel - 含新密碼強檢) -->
+        <!-- 3. 忘記密碼與 OTP 面板 -->
         <!-- ========================================== -->
         <div id="forgot-panel" class="space-y-5 flex-grow flex flex-col justify-start hidden">
-            <h1 id="text-reset-password" class="text-2xl font-bold text-center text-[#EAB308] tracking-wide mb-2">重設密碼</h1>
-            
-            <!-- 步驟一：輸入信箱獲取 OTP -->
-            <div id="otp-step-1" class="space-y-4">
-                <p id="text-otp-step1-hint" class="text-sm text-gray-400 text-center">請輸入您的電子郵件，我們將發送 6~8 位數驗證碼至您的信箱。</p>
+            <!-- 步驟一：輸入信箱 -->
+            <div id="otp-step-1" class="space-y-5">
+                <p id="text-otp-step1-hint" class="text-sm text-gray-400 text-center leading-relaxed">請輸入您的電子郵件，我們將發送 6~8 位數驗證碼至您的信箱。</p>
                 <div class="relative">
-                    <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-[#EAB308]"><i class="fa-solid fa-envelope"></i></span>
-                    <input type="email" id="forgot-email" class="w-full bg-white text-gray-900 pl-11 pr-4 py-3.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-[#EAB308] text-lg"><i class="fa-solid fa-envelope"></i></span>
+                    <input type="email" id="forgot-email" class="w-full bg-[#F3F4F6] text-gray-900 pl-12 pr-4 py-3.5 rounded-xl font-medium focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
-                <button onclick="sendResetOTP()" id="btn-send-otp" class="w-full gradient-btn hover:opacity-90 text-white font-medium py-3.5 rounded-xl transition">發送驗證碼</button>
+                <button onclick="sendResetOTP()" id="btn-send-otp" class="w-full btn-gradient-primary hover:opacity-95 text-white font-bold py-4 rounded-xl transition tracking-wide">發送驗證碼</button>
             </div>
 
-            <!-- 步驟二：輸入驗證碼與新密碼 -->
+            <!-- 步驟二：輸入 OTP 與高強度新密碼 -->
             <div id="otp-step-2" class="space-y-4 hidden">
-                <p id="text-otp-step2-hint" class="text-sm text-gray-400 text-center">驗證碼已發送！請輸入 6~8 位數驗證碼與高強度新密碼。</p>
+                <p id="text-otp-step2-hint" class="text-sm text-gray-400 text-center leading-relaxed">驗證碼已發送！請輸入 6~8 位數驗證碼與高強度新密碼。</p>
                 <div class="relative">
-                    <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-[#EAB308]"><i class="fa-solid fa-key"></i></span>
-                    <input type="text" id="otp-code" maxlength="8" class="w-full bg-white text-gray-900 pl-11 pr-4 py-3.5 rounded-xl tracking-[0.3em] text-center font-bold text-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-[#EAB308] text-lg"><i class="fa-solid fa-key"></i></span>
+                    <input type="text" id="otp-code" maxlength="8" class="w-full bg-[#F3F4F6] text-gray-900 pl-12 pr-4 py-3.5 rounded-xl tracking-[0.2em] text-center font-bold text-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
                 
-                <!-- 新密碼欄位與即時強檢 -->
-                <div class="space-y-2">
+                <!-- 新密碼與強度條 -->
+                <div class="space-y-2.5">
                     <div class="relative">
-                        <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-[#EAB308]"><i class="fa-solid fa-lock"></i></span>
-                        <input type="password" id="otp-new-password" oninput="validatePasswordLive('otp')" class="w-full bg-white text-gray-900 pl-11 pr-11 py-3.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        <button onclick="togglePasswordVisibility('otp-new-password')" class="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-400 hover:text-gray-600">
-                            <i class="fa-solid fa-eye" id="eye-otp-new-password"></i>
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-[#EAB308] text-lg"><i class="fa-solid fa-lock"></i></span>
+                        <input type="password" id="otp-password" oninput="validatePasswordLive('otp')" class="w-full bg-[#F3F4F6] text-gray-900 pl-12 pr-12 py-3.5 rounded-xl font-mono focus:outline-none focus:ring-2 focus:ring-blue-500 tracking-widest">
+                        <button onclick="togglePasswordVisibility('otp-password')" class="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-400 hover:text-gray-600">
+                            <i class="fa-solid fa-eye text-lg" id="eye-otp-password"></i>
                         </button>
                     </div>
 
-                    <!-- 密碼強度顯示條 (OTP) -->
-                    <div class="h-1.5 w-full bg-gray-800 rounded-full overflow-hidden">
-                        <div id="otp-strength-bar" class="h-full w-0 bg-red-500 transition-all duration-300"></div>
+                    <div class="space-y-1.5 pt-1">
+                        <div class="flex justify-between items-center text-xs text-gray-300 px-0.5">
+                            <span>密碼強度</span>
+                            <span id="otp-strength-label" class="font-bold tracking-wide transition-colors duration-200"></span>
+                        </div>
+                        <div class="h-1.5 w-full bg-gray-800 rounded-full overflow-hidden">
+                            <div id="otp-strength-bar" class="h-full w-0 bg-red-500 transition-all duration-300"></div>
+                        </div>
                     </div>
 
-                    <!-- 即時條件檢核清單 (OTP) -->
-                    <div class="grid grid-cols-2 gap-x-2 gap-y-1 text-[11px] text-gray-500 pt-1">
-                        <div id="otp-req-len" class="flex items-center gap-1 transition"><i class="fa-solid fa-circle-minus"></i><span id="lbl-otp-len">長度至少 8 碼</span></div>
-                        <div id="otp-req-up" class="flex items-center gap-1 transition"><i class="fa-solid fa-circle-minus"></i><span id="lbl-otp-up">包含大寫字母 (A-Z)</span></div>
-                        <div id="otp-req-low" class="flex items-center gap-1 transition"><i class="fa-solid fa-circle-minus"></i><span id="lbl-otp-low">包含小寫字母 (a-z)</span></div>
-                        <div id="otp-req-num" class="flex items-center gap-1 transition"><i class="fa-solid fa-circle-minus"></i><span id="lbl-otp-num">包含數字 (0-9)</span></div>
-                        <div id="otp-req-spec" class="flex items-center gap-1 col-span-2 transition"><i class="fa-solid fa-circle-minus"></i><span id="lbl-otp-spec">包含特殊符號 (@, #, $, %, ^, &, *)</span></div>
+                    <!-- 忘記密碼區的垂直檢核列表 -->
+                    <div class="flex flex-col gap-2 text-xs text-gray-500 pt-1.5 pl-0.5">
+                        <div id="otp-req-len" class="flex items-center gap-2 transition-colors duration-200"><i class="fa-regular fa-circle text-sm"></i><span id="lbl-otp-len">至少 8 碼</span></div>
+                        <div id="otp-req-up" class="flex items-center gap-2 transition-colors duration-200"><i class="fa-regular fa-circle text-sm"></i><span id="lbl-otp-up">至少包含一個大寫英文字母 (A-Z)</span></div>
+                        <div id="otp-req-low" class="flex items-center gap-2 transition-colors duration-200"><i class="fa-regular fa-circle text-sm"></i><span id="lbl-otp-low">至少包含一個小寫英文字母 (a-z)</span></div>
+                        <div id="otp-req-num" class="flex items-center gap-2 transition-colors duration-200"><i class="fa-regular fa-circle text-sm"></i><span id="lbl-otp-num">至少包含一個數字 (0-9)</span></div>
+                        <div id="otp-req-spec" class="flex items-center gap-2 transition-colors duration-200"><i class="fa-regular fa-circle text-sm"></i><span id="lbl-otp-spec">至少包含一個特殊符號 (如 @、#、$、%、^、&、*)</span></div>
                     </div>
                 </div>
 
-                <button onclick="verifyOTPAndReset()" id="btn-confirm-reset" class="w-full gradient-btn hover:opacity-90 text-white font-medium py-3.5 rounded-xl transition">確認重設密碼</button>
+                <button onclick="verifyOTPAndReset()" id="btn-confirm-reset" class="w-full btn-gradient-primary hover:opacity-95 text-white font-bold py-4 rounded-xl transition tracking-wide mt-2">確認重設密碼</button>
             </div>
 
-            <button onclick="switchPanel('login-panel')" id="btn-link-back-login" class="text-gray-400 text-sm hover:text-white transition block text-center mt-4"><i class="fa-solid fa-arrow-left mr-2"></i>返回登入</button>
+            <button onclick="switchPanel('register-panel')" id="btn-link-back-login" class="text-gray-400 text-sm hover:text-white transition block text-center mt-4"><i class="fa-solid fa-arrow-left mr-2"></i>返回註冊面板</button>
         </div>
 
         <!-- ========================================== -->
@@ -207,19 +219,19 @@
         </div>
 
         <!-- ========================================== -->
-        <!-- 最底部：法規聲明與危險操作區（含刪除帳號） -->
+        <!-- 最底部：法律條款與安全操作區（含刪除帳號按鈕） -->
         <!-- ========================================== -->
         <div class="mt-6 space-y-4 w-full">
-            <p id="terms-box" class="text-center text-xs text-gray-400 leading-relaxed px-4">
+            <p id="terms-box" class="text-center text-[11px] text-gray-500 leading-relaxed px-4">
                 <span id="text-terms-prefix">註冊即代表您同意我們的 </span>
                 <a href="https://jksummerx8-hub.github.io/terms-of-service/" target="_blank" class="text-[#EAB308] underline hover:text-yellow-500 font-medium">服務條款</a> 
                 <span id="text-and">與</span> 
                 <a href="https://jksummerx8-hub.github.io/Privacy-Policy-Supabase-/" target="_blank" class="text-[#EAB308] underline hover:text-yellow-500 font-medium">隱私政策</a>
             </p>
 
-            <!-- 永久刪除帳號安全按鈕（始終保持在視窗最底端） -->
+            <!-- 永久刪除帳號按鈕（維持在視窗最底部） -->
             <div id="danger-zone" class="border-t border-red-900/30 pt-4 hidden">
-                <button onclick="handleDeleteAccount()" id="btn-delete-acc" class="w-full text-red-500 bg-red-950/20 hover:bg-red-950/50 border border-red-900/50 py-2.5 rounded-xl text-xs font-medium tracking-wide transition">
+                <button onclick="handleDeleteAccount()" id="btn-delete-acc" class="w-full text-red-500 bg-red-950/20 hover:bg-red-950/40 border border-red-900/40 py-2.5 rounded-xl text-xs font-semibold tracking-wide transition active:scale-[0.99]">
                     <i class="fa-solid fa-trash-can mr-1.5"></i> 永久刪除帳號 (Delete Account)
                 </button>
             </div>
@@ -228,85 +240,59 @@
     </div>
 
     <!-- ========================================== -->
-    <!-- 多國語系配置字典 -->
+    <!-- 多國語系翻譯設定 -->
     <!-- ========================================== -->
     <script>
         const i18n = {
             zh: {
                 langBtn: '<i class="fa-solid fa-globe mr-1"></i>EN',
                 closeBtn: "關閉",
-                welcomeBack: "歡迎回來",
+                titleRegister: "建立新帳號",
+                titleLogin: "密碼系統登入",
+                titleReset: "重設密碼",
                 appleLogin: "使用 Apple 登入",
-                or: "或者",
                 emailPlaceholder: "電子郵件",
                 passwordPlaceholder: "密碼",
-                login: "登入",
-                gotoRegister: "沒有帳號？立即註冊",
-                forgotPwd: "忘記密碼？",
-                createAccount: "建立帳號",
-                namePlaceholder: "姓名或暱稱 (Name or nickname)",
+                namePlaceholder: "姓名或暱稱",
                 ageSuffix: "歲",
-                registerNow: "立即註冊 (Register Now)",
+                registerNow: "立即註冊",
                 backToLogin: "已有帳號？返回登入",
-                resetPassword: "重設密碼",
                 otpStep1Hint: "請輸入您的電子郵件，我們將發送 6~8 位數驗證碼至您的信箱。",
                 sendOtp: "發送驗證碼",
                 otpStep2Hint: "驗證碼已發送！請輸入 6~8 位數驗證碼與高強度新密碼。",
                 otpPlaceholder: "6~8 位數驗證碼 (OTP)",
                 newPasswordPlaceholder: "請輸入高強度新密碼",
                 confirmReset: "確認重設密碼",
-                linkBackLogin: "返回登入",
-                memberCenter: "會員中心",
-                currAccount: "目前登入帳號：",
-                profile: "基本資料：",
-                logout: "登出帳號",
-                termsPrefix: "註冊即代表您同意我們的 ",
-                and: "與",
-                deleteAcc: '<i class="fa-solid fa-trash-can mr-1.5"></i> 永久刪除帳號 (Delete Account)',
-                welcomeUser: "歡迎 {name} 回來",
-                lblLen: "長度至少 8 碼",
-                lblUp: "包含大寫字母 (A-Z)",
-                lblLow: "包含小寫字母 (a-z)",
-                lblNum: "包含數字 (0-9)",
-                lblSpec: "包含特殊符號 (@, #, $, %, ^, &, *)"
+                lblLen: "至少 8 碼",
+                lblUp: "至少包含一個大寫英文字母 (A-Z)",
+                lblLow: "至少包含一個小寫英文字母 (a-z)",
+                lblNum: "至少包含一個數字 (0-9)",
+                lblSpec: "至少包含一個特殊符號 (如 @、#、$、%、^、&、*)"
             },
             en: {
                 langBtn: '<i class="fa-solid fa-globe mr-1"></i>繁中',
                 closeBtn: "Close",
-                welcomeBack: "Welcome Back",
+                titleRegister: "Create Account",
+                titleLogin: "Account Login",
+                titleReset: "Reset Password",
                 appleLogin: "Sign in with Apple",
-                or: "or",
-                emailPlaceholder: "Email",
+                emailPlaceholder: "Email Address",
                 passwordPlaceholder: "Password",
-                login: "Log In",
-                gotoRegister: "Already have an account? Back to log in",
-                forgotPwd: "Forgot password?",
-                createAccount: "Create Account",
-                namePlaceholder: "Name or nickname",
+                namePlaceholder: "Name or Nickname",
                 ageSuffix: "years old",
                 registerNow: "Register Now",
-                backToLogin: "Already have an account? Back to log in",
-                resetPassword: "Reset Password",
-                otpStep1Hint: "Please enter your email, we will send a 6-8 digit code to your inbox.",
+                backToLogin: "Already have an account? Log In",
+                otpStep1Hint: "Please enter your email, we will send a 6-8 digit verification code.",
                 sendOtp: "Send Verification Code",
-                otpStep2Hint: "Verification code sent! Please enter 6-8 digit code and high-strength password.",
+                otpStep2Hint: "Verification code sent! Please enter the code and a strong password.",
                 otpPlaceholder: "6-8 Digit Code (OTP)",
                 newPasswordPlaceholder: "Enter strong new password",
                 confirmReset: "Confirm Reset Password",
-                linkBackLogin: "Back to Login",
-                memberCenter: "Member Center",
-                currAccount: "Current Account:",
-                profile: "Profile:",
-                logout: "Log Out",
-                termsPrefix: "By registering, you agree to our ",
-                and: "and",
-                deleteAcc: '<i class="fa-solid fa-trash-can mr-1.5"></i> Delete Account Permanently',
-                welcomeUser: "Welcome back, {name}",
-                lblLen: "Min 8 characters",
-                lblUp: "Uppercase letter (A-Z)",
-                lblLow: "Lowercase letter (a-z)",
-                lblNum: "Contains number (0-9)",
-                lblSpec: "Special symbol (@, #, $, %, ^, &, *)"
+                lblLen: "At least 8 characters",
+                lblUp: "At least one uppercase letter (A-Z)",
+                lblLow: "At least one lowercase letter (a-z)",
+                lblNum: "At least one number (0-9)",
+                lblSpec: "At least one special symbol (@, #, $, %, etc.)"
             }
         };
 
@@ -322,61 +308,31 @@
             document.getElementById('lang-btn').innerHTML = t.langBtn;
             document.getElementById('close-btn').innerText = t.closeBtn;
 
-            // 登入
-            document.getElementById('text-welcome-back').innerText = t.welcomeBack;
-            document.getElementById('text-apple-login').innerText = t.appleLogin;
-            document.getElementById('text-or').innerText = t.or;
-            document.getElementById('login-email').placeholder = t.emailPlaceholder;
-            document.getElementById('login-password').placeholder = t.passwordPlaceholder;
-            document.getElementById('btn-login').innerText = t.login;
-            document.getElementById('btn-goto-register').innerText = t.gotoRegister;
-            document.getElementById('btn-forgot-pwd').innerText = t.forgotPwd;
-
-            // 註冊與檢核清單
-            document.getElementById('text-create-account').innerText = t.createAccount;
+            // 輸入欄位 Placeholders
             document.getElementById('reg-name').placeholder = t.namePlaceholder;
             document.getElementById('reg-email').placeholder = t.emailPlaceholder;
-            document.getElementById('reg-password').placeholder = t.passwordPlaceholder;
-            document.getElementById('btn-register-now').innerText = t.registerNow;
-            document.getElementById('btn-back-to-login').innerText = t.backToLogin;
+            document.getElementById('login-email').placeholder = t.emailPlaceholder;
+            document.getElementById('login-password').placeholder = t.passwordPlaceholder;
+            document.getElementById('forgot-email').placeholder = t.emailPlaceholder;
+            document.getElementById('otp-code').placeholder = t.otpPlaceholder;
+
+            // 條件檢核清單文字
             document.getElementById('lbl-req-len').innerText = t.lblLen;
             document.getElementById('lbl-req-up').innerText = t.lblUp;
             document.getElementById('lbl-req-low').innerText = t.lblLow;
             document.getElementById('lbl-req-num').innerText = t.lblNum;
             document.getElementById('lbl-req-spec').innerText = t.lblSpec;
-            renderAgeOptions();
 
-            // 忘記密碼
-            document.getElementById('text-reset-password').innerText = t.resetPassword;
-            document.getElementById('text-otp-step1-hint').innerText = t.otpStep1Hint;
-            document.getElementById('forgot-email').placeholder = t.emailPlaceholder;
-            document.getElementById('btn-send-otp').innerText = t.sendOtp;
-            document.getElementById('text-otp-step2-hint').innerText = t.otpStep2Hint;
-            document.getElementById('otp-code').placeholder = t.otpPlaceholder;
-            document.getElementById('otp-new-password').placeholder = t.newPasswordPlaceholder;
             document.getElementById('lbl-otp-len').innerText = t.lblLen;
             document.getElementById('lbl-otp-up').innerText = t.lblUp;
             document.getElementById('lbl-otp-low').innerText = t.lblLow;
             document.getElementById('lbl-otp-num').innerText = t.lblNum;
             document.getElementById('lbl-otp-spec').innerText = t.lblSpec;
-            document.getElementById('btn-confirm-reset').innerText = t.confirmReset;
-            document.getElementById('btn-link-back-login').innerHTML = `<i class="fa-solid fa-arrow-left mr-2"></i>${t.linkBackLogin}`;
 
-            // 會編
-            document.getElementById('text-member-center').innerText = t.memberCenter;
-            document.getElementById('text-curr-account').innerText = t.currAccount;
-            document.getElementById('text-profile').innerText = t.profile;
-            document.getElementById('btn-logout').innerText = t.logout;
-
-            // 底部
-            document.getElementById('text-terms-prefix').innerText = t.termsPrefix;
-            document.getElementById('text-and').innerText = ` ${t.and} `;
-            document.getElementById('btn-delete-acc').innerHTML = t.deleteAcc;
-
-            refreshTopRightWelcome();
+            renderAgeOptions();
+            updatePanelTitles();
         }
 
-        // 動態生成 1 ~ 99 歲選單
         function renderAgeOptions() {
             const ageSelect = document.getElementById('reg-age');
             const currentAgeVal = ageSelect.value || "25";
@@ -391,24 +347,29 @@
             }
         }
 
-        let cachedSession = null;
-        function refreshTopRightWelcome() {
-            const topRightArea = document.getElementById('top-right-area');
-            if (cachedSession) {
-                const name = cachedSession.user.user_metadata.name || cachedSession.user.email.split('@')[0];
-                const welcomeText = i18n[currentLang].welcomeUser.replace('{name}', name);
-                topRightArea.innerHTML = `<span class="text-xs text-[#EAB308] font-medium text-right truncate block w-full" title="${welcomeText}">${welcomeText}</span>`;
-            } else {
-                topRightArea.innerHTML = `<button id="close-btn" onclick="location.reload()" class="text-gray-400 text-sm bg-gray-900/60 px-3 py-1.5 rounded-full border border-gray-800 hover:bg-gray-800 transition">${i18n[currentLang].closeBtn}</button>`;
+        function updatePanelTitles() {
+            const t = i18n[currentLang];
+            const regHidden = document.getElementById('register-panel').classList.contains('hidden');
+            const loginHidden = document.getElementById('login-panel').classList.contains('hidden');
+            const forgotHidden = document.getElementById('forgot-panel').classList.contains('hidden');
+
+            if (!regHidden) {
+                document.getElementById('sub-title-label').innerText = "帳號系統登入";
+                document.getElementById('main-title-label').innerText = t.titleRegister;
+            } else if (!loginHidden) {
+                document.getElementById('sub-title-label').innerText = "Zenith Magic";
+                document.getElementById('main-title-label').innerText = "會員登入";
+            } else if (!forgotHidden) {
+                document.getElementById('sub-title-label').innerText = "安全密碼重置";
+                document.getElementById('main-title-label').innerText = t.titleReset;
             }
         }
     </script>
 
     <!-- ========================================== -->
-    <!-- 即時密碼強度動態檢查 (Real-time Validation) 核心 -->
+    <!-- 即時密碼強度與圖示判定控制邏輯 -->
     <!-- ========================================== -->
     <script>
-        // 全域保存兩個面板密碼是否合格的布林值
         let isRegPasswordSecure = false;
         let isOtpPasswordSecure = false;
 
@@ -416,7 +377,6 @@
             const input = document.getElementById(`${prefix}-password`);
             const val = input.value;
 
-            // 檢核條件定義
             const checks = {
                 len: val.length >= 8,
                 up: /[A-Z]/.test(val),
@@ -427,50 +387,57 @@
 
             let passedCount = 0;
 
-            // 遍歷所有條件並動態修正 UI
+            // 巡檢條件，完美同步設計稿：通過時變綠色配打勾，未通過時變灰色配空心圓圈
             for (const key in checks) {
                 const row = document.getElementById(`${prefix}-req-${key}`);
                 const icon = row.querySelector('i');
                 
                 if (checks[key]) {
                     passedCount++;
-                    row.classList.remove('text-gray-500');
-                    row.classList.add('text-green-500');
-                    icon.className = 'fa-solid fa-circle-check text-green-500';
+                    row.className = "flex items-center gap-2 text-green-500 transition-colors duration-200";
+                    icon.className = "fa-solid fa-circle-check text-green-500 text-sm";
                 } else {
-                    row.classList.remove('text-green-500');
-                    row.classList.add('text-gray-500');
-                    icon.className = 'fa-solid fa-circle-minus text-gray-500';
+                    row.className = "flex items-center gap-2 text-gray-500 transition-colors duration-200";
+                    icon.className = "fa-regular fa-circle text-gray-400 text-sm";
                 }
             }
 
-            // 更新密碼強度條
+            // 更新密碼強度文字標籤與色條 (橘色/黃色/綠色階梯制)
             const bar = document.getElementById(`${prefix}-strength-bar`);
+            const label = document.getElementById(`${prefix}-strength-label`);
+            
             bar.className = 'h-full transition-all duration-300 ';
             
-            if (passedCount <= 2) {
-                bar.style.width = `${(passedCount / 5) * 100}%`;
-                bar.classList.add('bg-red-500');
+            if (val.length === 0) {
+                bar.style.width = '0%';
+                label.innerText = '';
+            } else if (passedCount <= 2) {
+                bar.style.width = '35%';
+                bar.style.backgroundColor = '#EF4444'; // 紅色
+                label.innerText = currentLang === 'zh' ? '弱' : 'Weak';
+                label.style.color = '#EF4444';
             } else if (passedCount <= 4) {
-                bar.style.width = `${(passedCount / 5) * 100}%`;
-                bar.classList.add('bg-yellow-500');
+                bar.style.width = '70%';
+                bar.style.backgroundColor = '#F97316'; // 完美同步設計稿的橘色
+                label.innerText = currentLang === 'zh' ? '中' : '中';
+                label.style.color = '#F97316';
             } else {
                 bar.style.width = '100%';
-                bar.classList.add('bg-green-500');
+                bar.style.backgroundColor = '#22C55E'; // 翠綠色
+                label.innerText = currentLang === 'zh' ? '強' : 'Strong';
+                label.style.color = '#22C55E';
             }
 
-            // 寫入合格權限
             if (prefix === 'reg') isRegPasswordSecure = (passedCount === 5);
             if (prefix === 'otp') isOtpPasswordSecure = (passedCount === 5);
         }
 
-        // 密碼小眼睛切換 👁
         function togglePasswordVisibility(inputId) {
             const input = document.getElementById(inputId);
             const eye = document.getElementById(`eye-${inputId}`);
             if (input.type === 'password') {
                 input.type = 'text';
-                eye.className = 'fa-solid fa-eye-slash text-blue-400';
+                eye.className = 'fa-solid fa-eye-slash text-blue-500';
             } else {
                 input.type = 'password';
                 eye.className = 'fa-solid fa-eye text-gray-400';
@@ -479,24 +446,48 @@
     </script>
 
     <!-- ========================================== -->
-    <!-- Supabase 運作邏輯控制 -->
+    <!-- Supabase 後端串接與防中文崩潰安全機制 -->
     <!-- ========================================== -->
     <script>
         const SUPABASE_URL = "https://jyghcpwnrsisdqjoxvfu.supabase.co";
-        const SUPABASE_ANON_KEY = "請填入你的_SUPABASE_ANON_KEY"; // ⚠️ 請於此處貼上你的 Anon Key
+        // ⚠️ 請在此處填入你正確的 Supabase 明文金鑰
+        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
+YmFzZSIsInJlZiI6Imp5Z2hjcHducnNpc2Rxam94dmZ1Iiwicm9s
+ZSI6ImFub24iLCJpYXQiOjE3ODE2MTE4MjYsImV4cCI6MjA5N
+zE4NzgyNn0.8TmCWCX0X-fxp9Ur1r06l8opRlKI8Xf7ZOiBY7bo
+huU"; 
         
-        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        let supabaseClient = null;
+
+        // 安全防錯機制：驗證 Anon Key 是否被正確填寫，防止包含中文引發 fetch 異常
+        function verifyAndInitSupabase() {
+            if (SUPABASE_ANON_KEY.includes("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
+YmFzZSIsInJlZiI6Imp5Z2hjcHducnNpc2Rxam94dmZ1Iiwicm9s
+ZSI6ImFub24iLCJpYXQiOjE3ODE2MTE4MjYsImV4cCI6MjA5N
+zE4NzgyNn0.8TmCWCX0X-fxp9Ur1r06l8opRlKI8Xf7ZOiBY7bo
+huU") || /[^\x00-\x7F]/.test(SUPABASE_ANON_KEY)) {
+                console.error("Supabase Anon Key configuration error.");
+                return false;
+            }
+            if (!supabaseClient) {
+                supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            }
+            return true;
+        }
 
         document.addEventListener("DOMContentLoaded", async () => {
             applyTranslations();
-            const { data: { session } } = await supabaseClient.auth.getSession();
-            cachedSession = session;
-            updateUIBasedOnSession(session);
-
-            supabaseClient.auth.onAuthStateChange((event, session) => {
-                cachedSession = session;
+            if (verifyAndInitSupabase()) {
+                const { data: { session } } = await supabaseClient.auth.getSession();
                 updateUIBasedOnSession(session);
-            });
+
+                supabaseClient.auth.onAuthStateChange((event, session) => {
+                    updateUIBasedOnSession(session);
+                });
+            } else {
+                // 如果金鑰尚未換掉，先預設留在註冊面板展示高畫質視覺
+                switchPanel('register-panel');
+            }
         });
 
         function switchPanel(panelId) {
@@ -510,20 +501,15 @@
             } else {
                 termsBox.classList.add('hidden');
             }
+            updatePanelTitles();
         }
 
         function updateUIBasedOnSession(session) {
             const dangerZone = document.getElementById('danger-zone');
-            refreshTopRightWelcome();
-
             if (session) {
                 document.getElementById('user-display-email').innerText = session.user.email;
                 const metadata = session.user.user_metadata;
-                const labelNickname = currentLang === 'zh' ? '暱稱' : 'Nickname';
-                const labelAge = currentLang === 'zh' ? '年齡' : 'Age';
-                const unitAge = currentLang === 'zh' ? '歲' : 'years old';
-                
-                document.getElementById('user-display-meta').innerText = `${labelNickname}: ${metadata.name || 'N/A'} | ${labelAge}: ${metadata.age || 'N/A'} ${unitAge}`;
+                document.getElementById('user-display-meta').innerText = `暱稱: ${metadata.name || 'N/A'} | 年齡: ${metadata.age || 'N/A'} 歲`;
                 switchPanel('dashboard-panel');
                 dangerZone.classList.remove('hidden');
             } else {
@@ -534,125 +520,116 @@
             }
         }
 
-        // --- 1. 郵件註冊 ---
+        // 串接註冊
         async function handleEmailRegister() {
+            if (!verifyAndInitSupabase()) {
+                return alert("⚠️ 請先在網頁原始碼第 230 行將 SUPABASE_ANON_KEY 替換為你在 Supabase 後台取得的真實英數密鑰，否則因為包含中文提示字，瀏覽器會直接封鎖請求並報錯！");
+            }
+
             const name = document.getElementById('reg-name').value.trim();
             const age = document.getElementById('reg-age').value;
             const email = document.getElementById('reg-email').value.trim();
             const password = document.getElementById('reg-password').value;
 
             if(!email || !password || !name) {
-                return alert(currentLang === 'zh' ? '請完整填寫註冊欄位！' : 'Please fill in all fields.');
+                return alert('請完整填寫所有註冊欄位！');
             }
 
-            // 前端攔截：未通過即時高強度檢核時，拒絕送出
             if (!isRegPasswordSecure) {
-                return alert(currentLang === 'zh' ? '您的密碼強度不足，請確保下方的條件皆為綠色打勾！' : 'Password is too weak. Please meet all listed conditions.');
+                return alert('您的密碼強度不符！請確保下方的 5 個條件清單皆成功轉為綠色打勾。');
             }
 
             const { data, error } = await supabaseClient.auth.signUp({
                 email: email,
                 password: password,
-                options: {
-                    data: { name: name, age: parseInt(age) },
-                    emailRedirectTo: window.location.origin + window.location.pathname
-                }
+                options: { data: { name: name, age: parseInt(age) } }
             });
 
-            if (error) return alert(`Error: ${error.message}`);
-            alert(currentLang === 'zh' ? '註冊成功！驗證信已發送，請至信箱確認。' : 'Registration successful! Please check your email.');
+            if (error) return alert(`註冊失敗: ${error.message}`);
+            alert('註冊成功！驗證郵件已發送，請至信箱點擊啟用連結。');
             switchPanel('login-panel');
         }
 
-        // --- 2. 傳統郵件登入 ---
+        // 串接登入
         async function handleEmailLogin() {
+            if (!verifyAndInitSupabase()) return alert("⚠️ 請先配置正確的明文 SUPABASE_ANON_KEY。");
             const email = document.getElementById('login-email').value.trim();
             const password = document.getElementById('login-password').value;
 
-            if(!email || !password) return alert(currentLang === 'zh' ? '請輸入帳號與密碼' : 'Please enter email and password.');
+            if(!email || !password) return alert('請輸入電子郵件與密碼');
 
             const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
-            if (error) return alert(`Error: ${error.message}`);
+            if (error) return alert(`登入失敗: ${error.message}`);
         }
 
-        // --- 3. Apple 第三方登入 ---
-        async function handleAppleLogin() {
-            const { data, error } = await supabaseClient.auth.signInWithOAuth({
-                provider: 'apple',
-                options: { redirectTo: window.location.origin + window.location.pathname }
-            });
-            if (error) alert(`Error: ${error.message}`);
-        }
-
-        // --- 4. 忘記密碼與 6~8位數 OTP 流程 ---
+        // 發送重設密碼驗證碼 (OTP)
         async function sendResetOTP() {
+            if (!verifyAndInitSupabase()) {
+                return alert("⚠️ 請先在網頁原始碼第 230 行將 SUPABASE_ANON_KEY 替換為你在 Supabase 後台取得的真實英數密鑰，否則因為包含中文提示字，瀏覽器會直接封鎖請求並報錯！");
+            }
+
             const email = document.getElementById('forgot-email').value.trim();
-            if(!email) return alert(currentLang === 'zh' ? '請輸入電子郵件' : 'Please enter email.');
+            if(!email) return alert('請輸入電子郵件');
 
             const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
                 redirectTo: window.location.origin + window.location.pathname
             });
 
-            if (error) return alert(`Error: ${error.message}`);
+            if (error) return alert(`發送失敗: ${error.message}`);
             
             document.getElementById('otp-step-1').classList.add('hidden');
             document.getElementById('otp-step-2').classList.remove('hidden');
-            alert(currentLang === 'zh' ? '驗證碼已發送至您的信箱！' : 'Verification code has been sent!');
+            alert('驗證金鑰已成功發送至您的信箱！');
         }
 
+        // 驗證碼與新密碼確認變更
         async function verifyOTPAndReset() {
+            if (!verifyAndInitSupabase()) return alert("⚠️ 請先配置正確的明文 SUPABASE_ANON_KEY。");
             const email = document.getElementById('forgot-email').value.trim();
             const token = document.getElementById('otp-code').value.trim();
-            const newPassword = document.getElementById('otp-new-password').value;
+            const newPassword = document.getElementById('otp-password').value;
 
-            // 支援 6 至 8 碼彈性驗證碼長度判定
             if(token.length < 6 || token.length > 8) {
-                return alert(currentLang === 'zh' ? '請輸入正確的 6~8 位數驗證碼' : 'Please enter a valid 6-8 digit code.');
+                return alert('請輸入正確的 6~8 位數驗證碼');
             }
 
             if (!isOtpPasswordSecure) {
-                return alert(currentLang === 'zh' ? '新密碼強度不足，請確認檢核項目！' : 'New password is too weak.');
+                return alert('新密碼強度不足，請確保檢核清單全部合格！');
             }
 
             const { data: verifyData, error: verifyError } = await supabaseClient.auth.verifyOtp({
                 email, token, type: 'recovery'
             });
 
-            if (verifyError) return alert(`Error: ${verifyError.message}`);
+            if (verifyError) return alert(`驗證碼錯誤: ${verifyError.message}`);
 
             const { data: updateData, error: updateError } = await supabaseClient.auth.updateUser({
                 password: newPassword
             });
 
-            if (updateError) return alert(`Error: ${updateError.message}`);
+            if (updateError) return alert(`更新密碼失敗: ${updateError.message}`);
             
-            alert(currentLang === 'zh' ? '密碼修改成功，已自動登入！' : 'Password reset successful! Logged in automatically.');
+            alert('密碼重設成功，已為您自動登入會員中心！');
             document.getElementById('otp-step-1').classList.remove('hidden');
             document.getElementById('otp-step-2').classList.add('hidden');
         }
 
-        // --- 5. 登出 ---
         async function handleLogout() {
-            await supabaseClient.auth.signOut();
+            if (supabaseClient) await supabaseClient.auth.signOut();
         }
 
-        // --- 6. 永久刪除帳號（RPC 安全呼叫） ---
         async function handleDeleteAccount() {
-            const confirmMsg = currentLang === 'zh' 
-                ? "⚠️ 警告：此操作將永久刪除您的帳號，這無法還原。確定要繼續嗎？" 
-                : "⚠️ Warning: This will permanently delete your account. This action cannot be undone. Do you want to proceed?";
-            
-            if (!confirm(confirmMsg)) return;
+            if (!verifyAndInitSupabase()) return alert("⚠️ 請先配置正確的明文 SUPABASE_ANON_KEY。");
+            if (!confirm("⚠️ 警告：此操作將會永久刪除您的帳號且無法復原，確定要繼續嗎？")) return;
 
             const { data, error } = await supabaseClient.rpc('delete_user_securely');
-            if (error) {
-                return alert(`Error: ${error.message}\n(請確認是否已在 Supabase 後台 SQL 編輯器設定 delete_user_securely 函數)`);
-            }
+            if (error) return alert(`刪除失敗: ${error.message}`);
 
-            alert(currentLang === 'zh' ? '您的帳號已被永久刪除。' : 'Your account has been permanently deleted.');
+            alert('您的帳號已成功被永久刪除。');
             await supabaseClient.auth.signOut();
             location.reload();
         }
     </script>
 </body>
 </html>
+
